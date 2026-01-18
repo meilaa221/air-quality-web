@@ -108,20 +108,20 @@ export default function Dashboard() {
       />
 
       {/* Header */}
-      <div className="mb-8">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="mb-4 sm:mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-800">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
               Dashboard
             </h1>
-            <p className="text-gray-500 mt-1">
-              Monitoring kualitas udara secara real-time
+            <p className="text-sm sm:text-base text-gray-500 mt-1">
+              Monitoring kualitas udara real-time
             </p>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
             {/* Live Indicator */}
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium bg-green-100 text-green-700">
+            <div className="flex items-center gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium bg-green-100 text-green-700">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
               Live
             </div>
@@ -129,15 +129,15 @@ export default function Dashboard() {
             {notificationPermission !== 'granted' && (
               <button
                 onClick={requestNotificationPermission}
-                className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-all shadow-lg shadow-blue-500/30 hover:shadow-blue-500/40"
+                className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-all shadow-lg shadow-blue-500/30 hover:shadow-blue-500/40"
               >
-                Aktifkan Notifikasi
+                Notifikasi
               </button>
             )}
             {lastUpdate && (
               <div className="text-right">
-                <p className="text-xs text-gray-400">Terakhir diperbarui</p>
-                <p className="text-sm font-medium text-gray-600">
+                <p className="text-xs text-gray-400">Update</p>
+                <p className="text-xs sm:text-sm font-medium text-gray-600">
                   {lastUpdate.toLocaleTimeString('id-ID')}
                 </p>
               </div>
@@ -147,42 +147,40 @@ export default function Dashboard() {
       </div>
 
       {/* Main Status Card */}
-      <div className={`rounded-2xl p-6 mb-8 border-2 ${getAirQualityBg(data?.airQuality)}`}>
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${getAirQualityColor(data?.airQuality)} flex items-center justify-center shadow-lg`}>
-              <span className="text-3xl">
+      <div className={`rounded-2xl p-4 sm:p-6 mb-6 sm:mb-8 border-2 ${getAirQualityBg(data?.airQuality)}`}>
+        <div className="flex flex-col gap-4 sm:gap-6">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br ${getAirQualityColor(data?.airQuality)} flex items-center justify-center shadow-lg flex-shrink-0`}>
+              <span className="text-2xl sm:text-3xl">
                 {data?.airQuality === 'Good' ? '🌸' :
                  data?.airQuality === 'Moderate' ? '🌤️' :
                  data?.airQuality === 'Poor' ? '🌫️' : '👻'}
               </span>
             </div>
             <div>
-              <p className="text-sm text-gray-500 mb-1">Status Kualitas Udara</p>
-              <h2 className="text-2xl font-bold text-gray-800">{data?.airQuality || '--'}</h2>
+              <p className="text-xs sm:text-sm text-gray-500 mb-1">Status Kualitas Udara</p>
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-800">{data?.airQuality || '--'}</h2>
             </div>
           </div>
-          <div className="flex items-center gap-8">
-            <div className="text-center">
-              <p className="text-4xl font-bold text-gray-800">{data?.ppm || '--'}</p>
-              <p className="text-sm text-gray-500">PPM</p>
+          <div className="grid grid-cols-3 gap-2 sm:gap-4">
+            <div className="text-center p-2 sm:p-3 bg-white/50 rounded-xl">
+              <p className="text-2xl sm:text-4xl font-bold text-gray-800">{data?.ppm !== null ? Math.round(data?.ppm) : '--'}</p>
+              <p className="text-xs sm:text-sm text-gray-500">PPM</p>
             </div>
-            <div className="h-12 w-px bg-gray-300"></div>
-            <div className="text-center">
-              <p className="text-4xl font-bold text-gray-800">{data?.temperature !== null ? data?.temperature : '--'}</p>
-              <p className="text-sm text-gray-500">Suhu</p>
+            <div className="text-center p-2 sm:p-3 bg-white/50 rounded-xl">
+              <p className="text-2xl sm:text-4xl font-bold text-gray-800">{data?.temperature !== null ? Math.round(data?.temperature) : '--'}</p>
+              <p className="text-xs sm:text-sm text-gray-500">Suhu °C</p>
             </div>
-            <div className="h-12 w-px bg-gray-300"></div>
-            <div className="text-center">
-              <p className="text-4xl font-bold text-gray-800">{data?.humidity !== null ? data?.humidity : '--'}</p>
-              <p className="text-sm text-gray-500">Kelembaban</p>
+            <div className="text-center p-2 sm:p-3 bg-white/50 rounded-xl">
+              <p className="text-2xl sm:text-4xl font-bold text-gray-800">{data?.humidity !== null ? Math.round(data?.humidity) : '--'}</p>
+              <p className="text-xs sm:text-sm text-gray-500">Humidity %</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Status Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-8">
         <StatusCard
           title="Level PPM"
           value={data?.ppm}
@@ -228,38 +226,38 @@ export default function Dashboard() {
       </div>
 
       {/* Chart */}
-      <div className="mb-8">
+      <div className="mb-6 sm:mb-8">
         <AirQualityChart />
       </div>
 
       {/* Info Section */}
-      <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-        <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-          <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg p-4 sm:p-6 border border-gray-100">
+        <h2 className="text-sm sm:text-lg font-semibold text-gray-800 mb-3 sm:mb-4 flex items-center gap-2">
+          <svg className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          Referensi Indeks Kualitas Udara (Rata-rata 5 Menit)
+          <span className="truncate">Referensi Indeks Kualitas Udara</span>
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="text-center p-4 rounded-xl bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-emerald-400 mx-auto mb-3 shadow-lg shadow-green-500/30"></div>
-            <p className="text-sm font-semibold text-green-700">Good</p>
-            <p className="text-xs text-gray-500 mt-1">&lt; 500 PPM</p>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
+          <div className="text-center p-2 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200">
+            <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-green-500 to-emerald-400 mx-auto mb-2 sm:mb-3 shadow-lg shadow-green-500/30"></div>
+            <p className="text-xs sm:text-sm font-semibold text-green-700">Good</p>
+            <p className="text-xs text-gray-500 mt-0.5 sm:mt-1">&lt; 500</p>
           </div>
-          <div className="text-center p-4 rounded-xl bg-gradient-to-br from-yellow-50 to-amber-50 border border-yellow-200">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-500 to-amber-400 mx-auto mb-3 shadow-lg shadow-yellow-500/30"></div>
-            <p className="text-sm font-semibold text-yellow-700">Moderate</p>
-            <p className="text-xs text-gray-500 mt-1">500 - 999 PPM</p>
+          <div className="text-center p-2 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-br from-yellow-50 to-amber-50 border border-yellow-200">
+            <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-yellow-500 to-amber-400 mx-auto mb-2 sm:mb-3 shadow-lg shadow-yellow-500/30"></div>
+            <p className="text-xs sm:text-sm font-semibold text-yellow-700">Moderate</p>
+            <p className="text-xs text-gray-500 mt-0.5 sm:mt-1">500-999</p>
           </div>
-          <div className="text-center p-4 rounded-xl bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-200">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-orange-400 mx-auto mb-3 shadow-lg shadow-orange-500/30"></div>
-            <p className="text-sm font-semibold text-orange-700">Poor</p>
-            <p className="text-xs text-gray-500 mt-1">1000 - 1999 PPM</p>
+          <div className="text-center p-2 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-200">
+            <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-orange-500 to-orange-400 mx-auto mb-2 sm:mb-3 shadow-lg shadow-orange-500/30"></div>
+            <p className="text-xs sm:text-sm font-semibold text-orange-700">Poor</p>
+            <p className="text-xs text-gray-500 mt-0.5 sm:mt-1">1000-1999</p>
           </div>
-          <div className="text-center p-4 rounded-xl bg-gradient-to-br from-red-50 to-rose-50 border border-red-200">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-red-500 to-red-400 mx-auto mb-3 shadow-lg shadow-red-500/30"></div>
-            <p className="text-sm font-semibold text-red-700">Dangerous</p>
-            <p className="text-xs text-gray-500 mt-1">&gt;= 2000 PPM</p>
+          <div className="text-center p-2 sm:p-4 rounded-lg sm:rounded-xl bg-gradient-to-br from-red-50 to-rose-50 border border-red-200">
+            <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-red-500 to-red-400 mx-auto mb-2 sm:mb-3 shadow-lg shadow-red-500/30"></div>
+            <p className="text-xs sm:text-sm font-semibold text-red-700">Dangerous</p>
+            <p className="text-xs text-gray-500 mt-0.5 sm:mt-1">&gt;= 2000</p>
           </div>
         </div>
       </div>

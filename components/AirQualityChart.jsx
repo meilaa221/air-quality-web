@@ -222,15 +222,15 @@ export default function AirQualityChart() {
   ]
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-        <h3 className="text-lg font-semibold text-gray-800">Riwayat 24 Jam Terakhir</h3>
-        <div className="flex gap-2">
+    <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-6 border border-gray-100">
+      <div className="flex flex-col gap-3 sm:gap-4 mb-4 sm:mb-6">
+        <h3 className="text-base sm:text-lg font-semibold text-gray-800">Riwayat 24 Jam Terakhir</h3>
+        <div className="flex gap-1 sm:gap-2 overflow-x-auto pb-2">
           {tabs.map(tab => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+              className={`flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium transition-all whitespace-nowrap ${
                 activeTab === tab.id
                   ? 'bg-blue-100 text-blue-700 shadow-sm'
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -242,7 +242,7 @@ export default function AirQualityChart() {
           ))}
         </div>
       </div>
-      <div className="h-80">
+      <div className="h-64 sm:h-80">
         <Line data={data} options={options} />
       </div>
     </div>
