@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
     <html lang="id">
       <body className="antialiased bg-gray-50">
         <Sidebar />
-        <main className="ml-64 p-8">
+        <main className="md:ml-64 p-4 md:p-8">
           {children}
         </main>
       </body>

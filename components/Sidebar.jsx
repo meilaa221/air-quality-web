@@ -2,9 +2,11 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useState } from 'react'
 
 export default function Sidebar() {
   const pathname = usePathname()
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   const menuItems = [
     {
@@ -45,8 +47,8 @@ export default function Sidebar() {
     }
   ]
 
-  return (
-    <aside className="fixed left-0 top-0 h-full w-64 bg-gradient-to-b from-slate-900 to-slate-800 text-white shadow-xl z-40">
+  const NavContent = ({ onLinkClick }) => (
+    <div>
       {/* Logo/Header */}
       <div className="p-6 border-b border-slate-700">
         <div className="flex items-center gap-3">
@@ -101,6 +103,57 @@ export default function Sidebar() {
           </p>
         </div>
       </div>
-    </aside>
+    </div>
+  )
+
+  return (
+    <>
+      {/* Mobile hamburger button */}
+      <button
+        onClick={() => setMobileOpen(true)}
+        className="md:hidden fixed top-4 left-4 z-50 bg-slate-900 text-white p-2 rounded-lg shadow-lg"
+        aria-label="Open menu"
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+
+      {/* Desktop sidebar (md and up) */}
+      <aside className="hidden md:fixed md:left-0 md:top-0 md:h-full md:w-64 bg-gradient-to-b from-slate-900 to-slate-800 text-white shadow-xl z-40">
+        <NavContent />
+      </aside>
+
+      {/* Mobile drawer */}
+      {mobileOpen && (
+        <div className="fixed inset-0 z-50 flex">
+          <div className="fixed inset-0 bg-black/50" onClick={() => setMobileOpen(false)}></div>
+          <aside className="relative w-64 bg-gradient-to-b from-slate-900 to-slate-800 text-white shadow-xl p-0">
+            <div className="p-4 border-b border-slate-700 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center shadow">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                  </svg>
+                </div>
+                <div>
+                  <h1 className="font-bold text-sm">Air Quality</h1>
+                  <p className="text-[10px] text-slate-400">Monitor System</p>
+                </div>
+              </div>
+              <button onClick={() => setMobileOpen(false)} className="p-2 rounded-md text-slate-300 hover:text-white">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="p-4 overflow-y-auto h-full">
+              <NavContent onLinkClick={() => setMobileOpen(false)} />
+            </div>
+          </aside>
+        </div>
+      )}
+    </>
   )
 }
